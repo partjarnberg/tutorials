@@ -10,3 +10,33 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+atlassian-ide-plugin.xml
+.DS_Store
+*.py~
+*.swp
+*.pyc
+*~
+target/
+*#
+.DS_Store
+xspec/
+*-result.html
+rebel_project.xml
+*.iml
+*.project
+*.classpath
+.extract*
+.settings*
+*.log
+**.idea/*
+**.metadata
+*.pmd
+*.idea
+*.eclipse
+*.checkstyle
+*.eclipse-pmd
+node
+node_modules
+frontend-dest
+dependency-reduced-pom.xml

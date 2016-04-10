@@ -5,9 +5,8 @@
 2. HATEOAS support
 3. Dependency injection
 4. Basic Auth
-5. Websockets
-6. Embedded web server
-7. Executable jar
+5. Embedded web server
+6. Executable jar
 
 ## Technologies being used
 - Spring Boot HATEOAS

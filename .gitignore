@@ -40,3 +40,4 @@ node
 node_modules
 frontend-dest
 dependency-reduced-pom.xml
+bundle.js

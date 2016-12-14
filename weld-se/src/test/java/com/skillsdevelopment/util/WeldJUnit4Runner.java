@@ -1,4 +1,4 @@
-package com.skillsdevelopment;
+package com.skillsdevelopment.util;
 
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;

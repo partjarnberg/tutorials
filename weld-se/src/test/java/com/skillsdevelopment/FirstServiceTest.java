@@ -1,6 +1,7 @@
 package com.skillsdevelopment;
 
 import com.skillsdevelopment.model.User;
+import com.skillsdevelopment.util.WeldJUnit4Runner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

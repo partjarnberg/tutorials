@@ -13,6 +13,7 @@
         <module>spring-boot-rest-hateoas-cdi-security-tomcat</module>
         <module>undertow-jersey-weld-shiro</module>
         <module>undertow-websockets</module>
+        <module>weld-se</module>
     </modules>
 
 </project>

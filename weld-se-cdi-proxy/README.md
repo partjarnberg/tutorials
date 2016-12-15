@@ -1,4 +1,4 @@
-# Weld SE
+# Weld SE CDI proxy
 ## Using proxy for CDI
 ```java
 public class UserFactory {

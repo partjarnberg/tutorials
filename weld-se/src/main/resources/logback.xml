@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.memorynotfound" level="TRACE"/>
+    <logger name="com.skillsdevelopment" level="TRACE"/>
 
     <root level="WARN">
         <appender-ref ref="STDOUT" />

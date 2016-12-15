@@ -1,17 +1,16 @@
 package com.skillsdevelopment.model;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 public class User {
-    private static final AtomicInteger COUNTER = new AtomicInteger(1);
-    private final String id;
+    private final UUID id;
 
     public User() {
-        id = "user-" + COUNTER.getAndIncrement();
+        id = UUID.randomUUID();
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

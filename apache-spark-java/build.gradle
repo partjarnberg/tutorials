@@ -1,0 +1,48 @@
+group 'com.skillsdevelopment'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.owasp:dependency-check-gradle:1.4.5.1"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE"
+    }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.4'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'org.owasp.dependencycheck'
+apply plugin: 'org.springframework.boot'
+
+ext {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+configurations {
+    all.collect { configuration ->
+        configuration.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.1.1'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

@@ -16,10 +16,6 @@ Checking limit of file descriptors
 ➜  ~ launchctl limit maxfiles
 	maxfiles    256            unlimited
 ```
-Increase it a bit.
-```
-➜  ~ sudo launchctl limit maxfiles 65536 200000
-```
 
 ## Summary
 I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 

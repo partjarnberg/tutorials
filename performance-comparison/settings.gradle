@@ -1,0 +1,4 @@
+rootProject.name = 'performance-comparison'
+include 'spring-boot'
+include 'undertow'
+

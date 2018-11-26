@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id "org.springframework.boot" version "2.1.0.RELEASE"
+}
+
+group 'com.skillsdevelopment'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.1.0.RELEASE'
+}

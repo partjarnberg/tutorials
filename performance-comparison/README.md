@@ -1,17 +1,50 @@
 # Performance comparison
+For curiosity I wanted to compare Spring WebFlux and Undertow on how the perform when implementing a REST API.
+
+__DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it can be configured. Feel free to point out if I've missed something obvious.
+Also I ran all the tests on my laptop acting both client and server. 
+
+Laptop specs:
+```
+macOS High Sierra version 10.13.6
+MacBook Pro 13-inch, 2016
+Processor 3,3 GHz Intel Core i7
+Memory 16GB 2133 MHz LPDDR3
+```
+Checking limit of file descriptors
+```
+➜  ~ launchctl limit maxfiles
+	maxfiles    256            unlimited
+```
+Increase it a bit.
+```
+➜  ~ sudo launchctl limit maxfiles 65536 200000
+```
 
 ## Summary
+I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 
+* Create HTTP handler/controller
+* Dispatch from I/O thread 
+* Create and serve JSON starting with a POJO
+* Run simple load test using [wrk](https://github.com/wg/wrk) 
+
 ![Histogram comparison][histogram-comparison]
 
+__Spring WebFlux (default)__ uses Netty as web server and could handle __922 623__ requests in __30.10s__ (30 649.32 requests/s)
+
+__Spring WebFlux - Undertow__ could handle __922 623__ requests in __30.05s__ (35 069.13 requests/s)
+
+__Undertow dispatching from I/O thread__ could handle __2 060 165__ requests in __30.08s__ (68 490.82 requests/s)
 
 ## Build
+Build both Spring WebFlux and Undertow projects from root by running the following.
 ```
 ./gradlew clean build bootJar shadowJar
 ```
 ## Spring boot - webflux
 ### Run
 ```
-java -jar spring-boot/build/libs/spring-boot-1.0-SNAPSHOT.jar
+java -jar spring-webflux/build/libs/spring-webflux-1.0-SNAPSHOT.jar
 ```
 ### Out-of-box
 ```java

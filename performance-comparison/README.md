@@ -1,4 +1,9 @@
 # Performance comparison
+
+## Summary
+![Histogram comparison][histogram-comparison]
+
+
 ## Build
 ```
 ./gradlew clean build bootJar shadowJar
@@ -140,4 +145,4 @@ Running 30s test @ http://localhost:8080
 Requests/sec:  68490.82
 Transfer/sec:     15.35MB
 ```
-[hue-first-page]: https://github.com/partjarnberg/tutorials/perfomance-comparison/blob/screenshots/hbase/hue-first-page.png?raw=true "Hue First Page"
+[histogram-comparison]: https://github.com/partjarnberg/tutorials/blob/screenshots/perfomance-comparison/histogram.png?raw=true "Histogram comparison"

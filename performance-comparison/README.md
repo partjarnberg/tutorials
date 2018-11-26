@@ -145,4 +145,5 @@ Running 30s test @ http://localhost:8080
 Requests/sec:  68490.82
 Transfer/sec:     15.35MB
 ```
-[histogram-comparison]: https://github.com/partjarnberg/tutorials/blob/screenshots/perfomance-comparison/histogram.png?raw=true "Histogram comparison"
+
+[histogram-comparison]: https://github.com/partjarnberg/tutorials/blob/screenshots/performance-comparison/histogram.png?raw=true "Histogram comparison"

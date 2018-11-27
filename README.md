@@ -10,3 +10,6 @@ But if I wanted to do the same using the reference implementations in Java for J
 
 #### [weld-se-cdi-proxy](https://github.com/partjarnberg/tutorials/tree/master/weld-se-cdi-proxy)
 Example on how to use proxy when working with Weld
+
+#### [performance-comparison](https://github.com/partjarnberg/tutorials/tree/master/performance-comparison)
+Performance comparison between Spring WebFlux and Undertow building REST APIs serving JSON.

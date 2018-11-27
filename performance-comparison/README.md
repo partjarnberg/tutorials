@@ -7,15 +7,15 @@ __DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it c
 * [Summary](#summary)
 * [Build](#build)
 * [Spring WebFlux](#spring-web-flux)
-    * [Run](#spring-web-flux-run)
-    * [Out-of-box](#spring-web-flux-oob)
-    * [Using Undertow instead of Netty](#spring-web-flux-undertow)
+    * [Run](#run)
+    * [Out-of-box](#out-of-box)
+    * [Using Undertow instead of Netty](#using-undertow-instead-of-netty)
 * [Undertow](#undertow)
-    * [Run](#undertow-run)
-    * [Out-of-box](#undertow-oob)
-* [Elaboration on test environment](#elaboration)
-    * [Laptop specs](#elaboration-laptop)
-    * [File Descriptors](#elaboration-fd)
+    * [Run](#run-1)
+    * [Out-of-box](#out-of-box-1)
+* [Elaboration on test environment](#elaboration-on-test-environment)
+    * [Laptop specs](#laptop-specs)
+    * [File Descriptors](#file-descriptors)
 
 ## Summary
 I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 

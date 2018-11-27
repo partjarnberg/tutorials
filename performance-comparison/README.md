@@ -11,12 +11,34 @@ MacBook Pro 13-inch, 2016
 Processor 3,3 GHz Intel Core i7
 Memory 16GB 2133 MHz LPDDR3
 ```
-Checking limit of file descriptors
+Checking limit of file descriptors (soft and hard limits respectively).
+
+_NOTE! Remember each socket on UNIX-based systems requires a 
+File Descriptor (FD) to be allocated from the Operating System. If for example a socket isn't 
+closed properly the FD remains dangling potentially causing the system and a running application to slow down._
+
+**Mac**
 ```
 ➜  ~ launchctl limit maxfiles
 	maxfiles    256            unlimited
 ```
-
+**Various Linux flavors** -S for soft and -H for hard limits.
+```
+➜  ~ ulimit -nS
+4864
+➜  ~ ulimit -nH
+unlimited
+```
+If you wanna increase number of allowed open file descriptors for current session you
+can run the following.
+**Mac** 
+```
+➜  ~ sudo launchctl limit maxfiles 65536 200000
+```
+**Various Linux flavors**
+```
+➜  ~ sudo ulimit -n -S 65536 & sudo ulimit -n -H 200000 
+```
 ## Summary
 I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 
 * Create HTTP handler/controller

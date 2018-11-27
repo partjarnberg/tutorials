@@ -1,44 +1,22 @@
 # Performance comparison
 For curiosity I wanted to compare Spring WebFlux and Undertow on how the perform when implementing a REST API.
 
-__DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it can be configured. Feel free to point out if I've missed something obvious.
-Also I ran all the tests on my laptop acting both client and server. 
+__DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it can be configured. Feel free to point out if I've missed something obvious. Also I ran all the tests on my laptop acting both client and server. 
 
-Laptop specs:
-```
-macOS High Sierra version 10.13.6
-MacBook Pro 13-inch, 2016
-Processor 3,3 GHz Intel Core i7
-Memory 16GB 2133 MHz LPDDR3
-```
-Checking limit of file descriptors (soft and hard limits respectively).
+## Table of Contents
+* [Summary](#summary)
+* [Build](#build)
+* [Spring WebFlux](#spring-web-flux)
+    * [Run](#run)
+    * [Out-of-box](#out-of-box)
+    * [Using Undertow instead of Netty](#using-undertow-instead-of-netty)
+* [Undertow](#undertow)
+    * [Run](#run-1)
+    * [Out-of-box](#out-of-box-1)
+* [Elaboration on test environment](#elaboration-on-test-environment)
+    * [Laptop specs](#laptop-specs)
+    * [File Descriptors](#file-descriptors)
 
-_NOTE! Remember each socket on UNIX-based systems requires a 
-File Descriptor (FD) to be allocated from the Operating System. If for example a socket isn't 
-closed properly the FD remains dangling potentially causing the system and a running application to slow down._
-
-**Mac**
-```
-➜  ~ launchctl limit maxfiles
-	maxfiles    256            unlimited
-```
-**Various Linux flavors** -S for soft and -H for hard limits.
-```
-➜  ~ ulimit -nS
-4864
-➜  ~ ulimit -nH
-unlimited
-```
-If you wanna increase number of allowed open file descriptors for current session you
-can run the following.
-**Mac** 
-```
-➜  ~ sudo launchctl limit maxfiles 65536 200000
-```
-**Various Linux flavors**
-```
-➜  ~ sudo ulimit -n -S 65536 & sudo ulimit -n -H 200000 
-```
 ## Summary
 I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 
 * Create HTTP handler/controller
@@ -59,7 +37,7 @@ Build both Spring WebFlux and Undertow projects from root by running the followi
 ```
 ./gradlew clean build bootJar shadowJar
 ```
-## Spring boot - webflux
+## Spring WebFlux
 ### Run
 ```
 java -jar spring-webflux/build/libs/spring-webflux-1.0-SNAPSHOT.jar
@@ -108,7 +86,7 @@ Running 30s test @ http://localhost:8080
 Requests/sec:  30649.32
 Transfer/sec:      4.68MB
 ```
-### Using undertow as web server
+### Using Undertow instead of Netty
 By configuring build.gradle we can select _Undertow_ as web server instead of _Netty_ (default).
 ```
 ...
@@ -195,6 +173,45 @@ Running 30s test @ http://localhost:8080
   2060165 requests in 30.08s, 461.71MB read
 Requests/sec:  68490.82
 Transfer/sec:     15.35MB
+```
+
+## Elaboration on test environment
+### Laptop specs
+```
+macOS High Sierra version 10.13.6
+MacBook Pro 13-inch, 2016
+Processor 3,3 GHz Intel Core i7
+Memory 16GB 2133 MHz LPDDR3
+```
+### File Descriptors
+Checking limit of file descriptors (soft and hard limits respectively).
+
+_NOTE! Remember each socket on UNIX-based systems requires a 
+File Descriptor (FD) to be allocated from the Operating System. If for example a socket isn't 
+closed properly the FD remains dangling potentially causing the system and a running application to slow down._
+
+**Mac**
+```
+➜  ~ launchctl limit maxfiles
+	maxfiles    256            unlimited
+```
+**Various Linux flavors** -S for soft and -H for hard limits.
+```
+➜  ~ ulimit -nS
+4864
+➜  ~ ulimit -nH
+unlimited
+```
+If you wanna increase number of allowed open file descriptors for current session you
+can run the following.
+
+**Mac** 
+```
+➜  ~ sudo launchctl limit maxfiles 65536 200000
+```
+**Various Linux flavors**
+```
+➜  ~ sudo ulimit -n -S 65536 & sudo ulimit -n -H 200000 
 ```
 
 [histogram-comparison]: https://github.com/partjarnberg/tutorials/blob/screenshots/performance-comparison/histogram.png?raw=true "Histogram comparison"

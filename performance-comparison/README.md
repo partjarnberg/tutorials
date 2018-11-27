@@ -148,7 +148,7 @@ public class Application {
         final Undertow server = Undertow.builder()
                 .setServerOption(ENABLE_HTTP2, true)
                 .addHttpListener(8080, "0.0.0.0", new RoutingHandler()
-                        .get("/", httpServerExchange -> httpServerExchange.dispatch(exchange -> {
+                        .get("/", dispatcher -> dispatcher.dispatch(exchange -> {
                             exchange.setStatusCode(OK);
                             exchange.getResponseHeaders().put(CONTENT_TYPE, "application/json;charset=utf-8");
                             exchange.getResponseSender().send(ByteBuffer.wrap(objectMapper.writeValueAsBytes(jaguar)));

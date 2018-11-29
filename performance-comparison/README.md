@@ -13,6 +13,9 @@ __DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it c
 * [Undertow](#undertow)
     * [Run](#run-1)
     * [Out-of-box](#out-of-box-1)
+* [Vert.x](#vert.x)
+    * [Run](#run-2)
+    * [Out-of-box](#out-of-box-2)
 * [Elaboration on test environment](#elaboration-on-test-environment)
     * [Laptop specs](#laptop-specs)
     * [File Descriptors](#file-descriptors)
@@ -175,6 +178,73 @@ Requests/sec:  68490.82
 Transfer/sec:     15.35MB
 ```
 
+## Vert.x
+### Run
+```
+java -jar vertx/build/libs/vertx-1.0-SNAPSHOT-all.jar
+```
+### Out-of-box
+```java
+package com.skillsdevelopment;
+
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.json.Json;
+import io.vertx.ext.web.Router;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Application extends AbstractVerticle {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
+    @Override
+    public void start(Future<Void> future) {
+        final Car jaguar = new Car("Jaguar", "E-type",
+                2, 2, 1234);
+
+        final Router router = Router.router(vertx);
+        router.get("/").produces("application/json").handler(request ->
+                request.response()
+                        .putHeader("content-type", "application/json;charset=utf-8")
+                        .setStatusCode(200).write(Buffer.buffer(Json.encode(jaguar)))
+                        .end());
+
+        vertx.createHttpServer()
+                .requestHandler(router)
+                .listen(config().getInteger("http.port", 8080), result -> {
+                    if (result.succeeded()) {
+                        future.complete();
+                    } else {
+                        future.fail(result.cause());
+                    }
+                });
+    }
+
+    @Override
+    public void stop() {
+        LOGGER.info("Shutting down application");
+    }
+
+    public static void main(String[] args) {
+        Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(new Application());
+    }
+}
+```
+```
+➜  ~ wrk -t8 -c500 -d30s http://localhost:8080
+Running 30s test @ http://localhost:8080
+  8 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    11.69ms    1.22ms  63.60ms   89.13%
+    Req/Sec     5.32k   426.31    11.69k    91.50%
+  1271104 requests in 30.07s, 210.93MB read
+  Socket errors: connect 0, read 103, write 18, timeout 0
+Requests/sec:  42272.10
+Transfer/sec:      7.01MB
+```
 ## Elaboration on test environment
 ### Laptop specs
 ```

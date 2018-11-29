@@ -13,7 +13,7 @@ __DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it c
 * [Undertow](#undertow)
     * [Run](#run-1)
     * [Out-of-box](#out-of-box-1)
-* [Vert.x](#vert.x)
+* [Vert.x](#vertx)
     * [Run](#run-2)
     * [Out-of-box](#out-of-box-2)
 * [Elaboration on test environment](#elaboration-on-test-environment)

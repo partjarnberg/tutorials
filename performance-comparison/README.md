@@ -1,5 +1,5 @@
 # Performance comparison
-For curiosity I wanted to compare Spring WebFlux and Undertow on how the perform when implementing a REST API.
+For curiosity I wanted to compare Spring WebFlux and Undertow on how they perform when implementing a REST API.
 
 __DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it can be configured. Feel free to point out if I've missed something obvious. Also I ran all the tests on my laptop acting both client and server. 
 

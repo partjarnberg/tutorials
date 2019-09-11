@@ -1,7 +1,7 @@
 # Performance comparison
-For curiosity I wanted to compare Spring WebFlux and Undertow on how they perform when implementing a REST API.
+For curiosity I wanted to compare Spring WebFlux, Undertow and Vert.x on how they perform when implementing a REST API.
 
-__DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it can be configured. Feel free to point out if I've missed something obvious. Also I ran all the tests on my laptop acting both client and server. 
+__DISCLAIMER!__ I have little (if any) experience of Spring WebFlux or Vert.x and how they can be configured. Feel free to point out if I've missed something obvious. Also I ran all the tests on my laptop acting both client and server. 
 
 ## Table of Contents
 * [Summary](#summary)
@@ -21,7 +21,7 @@ __DISCLAIMER!__ I have little (if any) experience of Spring WebFlux and how it c
     * [File Descriptors](#file-descriptors)
 
 ## Summary
-I did the simplest possible setup I could think of firing up Spring WebFlux and Undertow separately with the following requirements: 
+I did the simplest possible setup I could think of firing up Spring WebFlux, Undertow and Vert.x separately with the following requirements: 
 * Create HTTP handler/controller
 * Dispatch from I/O thread 
 * Create and serve JSON starting with a POJO
@@ -31,9 +31,11 @@ I did the simplest possible setup I could think of firing up Spring WebFlux and 
 
 __Spring WebFlux (default)__ uses Netty as web server and could handle __922 623__ requests in __30.10s__ (30 649.32 requests/s)
 
-__Spring WebFlux - Undertow__ could handle __922 623__ requests in __30.05s__ (35 069.13 requests/s)
+__Spring WebFlux (Undertow)__ could handle __922 623__ requests in __30.05s__ (35 069.13 requests/s)
 
 __Undertow dispatching from I/O thread__ could handle __2 060 165__ requests in __30.08s__ (68 490.82 requests/s)
+
+__Vert.x__ could handle __1 271 104__ requests in __30.07s__ (42 272.10 requests/s)
 
 ## Build
 Build both Spring WebFlux and Undertow projects from root by running the following.

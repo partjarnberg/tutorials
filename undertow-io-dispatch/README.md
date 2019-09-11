@@ -1,6 +1,6 @@
 Quick and dirty example how to get Undertow up and running making use of the process of dispatching from I/O thread to be able to handle as many requests as possible. 
 
-[![java12](https://img.shields.io/badge/java-11-blue.svg?longCache=true&style=for-the-badge)](https://docs.oracle.com/en/java/javase/12/)
+[![java12](https://img.shields.io/badge/java-12-blue.svg?longCache=true&style=for-the-badge)](https://docs.oracle.com/en/java/javase/12/)
 [![undertow](https://img.shields.io/badge/undertow-2-red.svg?longCache=true&style=for-the-badge)](http://undertow.io/)  
 
 ## Technologies

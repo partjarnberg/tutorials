@@ -1,0 +1,3 @@
+rootProject.name = 'new-java-http-client'
+include 'slow-rest-api'
+

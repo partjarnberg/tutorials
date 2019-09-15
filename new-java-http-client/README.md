@@ -29,3 +29,9 @@ The following technologies have been used to create the mashup.
 
 ### Run
 java -jar build/libs/new-java-http-client-1.0-SNAPSHOT.jar -httpPort 8080
+
+## Use docker-compose
+Run __docker-compose up__ to get the entire system up and running.
+ - book-service
+ - university-service
+ - new-java-http-client  

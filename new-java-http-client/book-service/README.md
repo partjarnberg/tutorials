@@ -5,9 +5,11 @@
 ### Rate limit
 The API have rate limitation allowing only 60 requests per hour. 
 
-*X-RateLimit-Limit* - The maximum number of requests you're permitted to make per hour.
-*X-RateLimit-Remaining* - The number of requests remaining in the current rate limit window.
-*X-RateLimit-Reset* - The time at which the current rate limit window resets in UTC epoch seconds.
+__X-RateLimit-Limit__ - The maximum number of requests you're permitted to make per hour.
+
+__X-RateLimit-Remaining__ - The number of requests remaining in the current rate limit window.
+
+__X-RateLimit-Reset__ - The time at which the current rate limit window resets in UTC epoch seconds.
 
 ### GET /api/books?query={query}
 Find all books with a title containing the queried string.

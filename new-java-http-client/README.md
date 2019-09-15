@@ -4,7 +4,7 @@
 [![http client](https://img.shields.io/badge/http--client-http/2-red.svg?longCache=true&style=for-the-badge)](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/package-summary.html)
 
 ## Technologies
-The following technologies have been used to create the mashup.
+The following technologies have been used.
 * [Undertow](http://undertow.io/)
   - Default web server of JBoss Wildfly (application server)
   - Supports non-blocking IO (NIO) by default
@@ -17,7 +17,6 @@ The following technologies have been used to create the mashup.
 * [SLF4J](https://www.slf4j.org/) (logback)
   - Logging specification and framework
 * [Guava](https://github.com/google/guava)'s cache
-  - Caching json response based on _mbid_
 * [Commons CLI](https://commons.apache.org/proper/commons-cli/)
   - To support _httpPort_ argument when running the application
 * JUnit

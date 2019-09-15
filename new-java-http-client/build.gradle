@@ -13,6 +13,12 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.skillsdevelopment.Application'
+    }
+}
+
 dependencies {
     implementation 'io.undertow:undertow-core:2.0.26.Final'
     implementation 'io.undertow:undertow-servlet:2.0.26.Final'

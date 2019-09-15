@@ -1,4 +1,4 @@
-package com.skillsdevelopment;
+package com.skillsdevelopment.rest;
 
 
 import com.skillsdevelopment.rest.representation.ErrorRepresentation;
@@ -13,7 +13,7 @@ public class ExceptionHandler implements HttpHandler {
     private final RequestUtil requestUtil;
     private final HttpHandler next;
 
-    ExceptionHandler(final RequestUtil requestUtil, final HttpHandler next) {
+    public ExceptionHandler(final RequestUtil requestUtil, final HttpHandler next) {
         this.requestUtil = requestUtil;
         this.next = next;
     }

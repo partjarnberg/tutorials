@@ -41,15 +41,15 @@ public class Application {
 
     public static void main(String[] args) throws ParseException {
         final Random random = new Random();
-        final ObjectMapper objectMapper = createObjectMapper();
-        final RequestUtil requestUtil = new RequestUtil(objectMapper);
+        final RequestUtil requestUtil = new RequestUtil(createObjectMapper());
         final BookService service = new BookService(new InmemoryBookRepository());
 
         final Undertow server = Undertow.builder()
                 .setServerOption(ENABLE_HTTP2, true)
                 .addHttpListener(extractHttpPort(args), DEFAULT_HOST).setHandler(
                         Handlers.path()
-                        .addPrefixPath("/api", new ExceptionHandler(requestUtil, new RatelimiterHandler(requestUtil, new RoutingHandler()
+                        .addPrefixPath("/api", new ExceptionHandler(requestUtil,
+                                new RatelimiterHandler(requestUtil, new RoutingHandler()
                                 .get("/books/{id}", exchange -> {
                                     sleepUninterruptibly(random.nextInt(DELAY_UPPER_BOUND), SECONDS);
                                     final UUID id = parseId(exchange);

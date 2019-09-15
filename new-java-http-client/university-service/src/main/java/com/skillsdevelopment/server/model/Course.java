@@ -8,14 +8,15 @@ public class Course {
     private final UUID id;
     private final String name;
     private final String description;
-
     private final Set<Student> participants;
+    private final Set<Book> courseLiterature;
 
-    private Course(final UUID id, final String name, final String description, final Set<Student> participants) {
+    private Course(final UUID id, final String name, final String description, final Set<Student> participants, final Set<Book> courseLiterature) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.participants = participants;
+        this.courseLiterature = courseLiterature;
     }
 
     public UUID getId() {
@@ -42,6 +43,18 @@ public class Course {
         participants.remove(student);
     }
 
+    public Set<Book> getCourseLiterature() {
+        return courseLiterature;
+    }
+
+    public void addCourseLiterature(final Book book) {
+        courseLiterature.add(book);
+    }
+
+    public void removeCourseLiterature(final Book book) {
+        courseLiterature.remove(book);
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -61,7 +74,7 @@ public class Course {
         }
 
         public Course build() {
-            return new Course(UUID.randomUUID(), name, description, new HashSet<>());
+            return new Course(UUID.randomUUID(), name, description, new HashSet<>(), new HashSet<>());
         }
     }
 }

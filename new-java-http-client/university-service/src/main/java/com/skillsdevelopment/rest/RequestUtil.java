@@ -1,4 +1,4 @@
-package com.skillsdevelopment;
+package com.skillsdevelopment.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skillsdevelopment.rest.representation.ErrorRepresentation;
@@ -15,6 +15,7 @@ import static io.undertow.util.StatusCodes.CREATED;
 import static io.undertow.util.StatusCodes.INTERNAL_SERVER_ERROR;
 import static io.undertow.util.StatusCodes.NOT_FOUND;
 import static io.undertow.util.StatusCodes.OK;
+import static io.undertow.util.StatusCodes.TOO_MANY_REQUESTS;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class RequestUtil {
@@ -24,7 +25,7 @@ public class RequestUtil {
         this.objectMapper = objectMapper;
     }
 
-    <T> void parseRequestBody(final HttpServerExchange exchange, final Class<T> clazz, final Consumer<T> consumer) {
+    public <T> void parseRequestBody(final HttpServerExchange exchange, final Class<T> clazz, final Consumer<T> consumer) {
         exchange.getRequestReceiver().receiveFullBytes((ignore, data) -> {
             try {
                 consumer.accept(objectMapper.readValue(data, clazz));
@@ -34,17 +35,21 @@ public class RequestUtil {
         });
     }
 
-    void sendCreated(final HttpServerExchange exchange, final StudentRepresentation studentRepresentation) {
+    public void sendCreated(final HttpServerExchange exchange, final StudentRepresentation studentRepresentation) {
         exchange.getResponseHeaders().put(LOCATION, exchange.getRequestPath() + "/" + studentRepresentation.getId());
         sendJson(exchange, studentRepresentation, CREATED);
     }
 
-    void sendOk(final HttpServerExchange exchange, final Object o) {
+    public void sendOk(final HttpServerExchange exchange, final Object o) {
         sendJson(exchange, o, OK);
     }
 
-    void sendNotFound(final HttpServerExchange exchange) {
+    public void sendNotFound(final HttpServerExchange exchange) {
         sendJson(exchange, new ErrorRepresentation("Hoodeladi - Page Not Found!!"), NOT_FOUND);
+    }
+
+    void sendTooManyRequests(final HttpServerExchange exchange, final ErrorRepresentation error) {
+        sendJson(exchange, error, TOO_MANY_REQUESTS);
     }
 
     void sendBadRequest(final HttpServerExchange exchange, final ErrorRepresentation error) {

@@ -66,7 +66,7 @@ public class RatelimiterHandler implements HttpHandler {
     }
 
     private static class RateLimit {
-        private static final Long LIMIT = 60L;
+        private static final Long LIMIT = 3600L;
         private final Instant reset;
         private AtomicLong remaining;
 

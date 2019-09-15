@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.skillsdevelopment.rest.ExceptionHandler;
+import com.skillsdevelopment.rest.RatelimiterHandler;
+import com.skillsdevelopment.rest.RequestUtil;
 import com.skillsdevelopment.rest.representation.CourseRepresentation;
 import com.skillsdevelopment.rest.representation.CoursesRepresentation;
 import com.skillsdevelopment.rest.representation.ParticipantsRepresentation;
@@ -41,13 +44,12 @@ public class Application {
 
     public static void main(String[] args) throws ParseException {
         final Random random = new Random();
-        final ObjectMapper objectMapper = createObjectMapper();
-        final RequestUtil requestUtil = new RequestUtil(objectMapper);
+        final RequestUtil requestUtil = new RequestUtil(createObjectMapper());
         final UniversityService service = new UniversityService();
 
         final Undertow server = Undertow.builder()
                 .setServerOption(ENABLE_HTTP2, true)
-                .addHttpListener(extractHttpPort(args), DEFAULT_HOST, new ExceptionHandler(requestUtil, new RoutingHandler()
+                .addHttpListener(extractHttpPort(args), DEFAULT_HOST, new ExceptionHandler(requestUtil, new RatelimiterHandler(requestUtil, new RoutingHandler()
                         .get("/api/students", exchange -> {
                             sleepUninterruptibly(random.nextInt(DELAY_UPPER_BOUND), SECONDS);
                             requestUtil.sendOk(exchange, new StudentsRepresentation(service.getAllStudents()));
@@ -111,7 +113,7 @@ public class Application {
                         })
                         .setFallbackHandler(requestUtil::sendNotFound)
 
-                )).build();
+                ))).build();
         server.start();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

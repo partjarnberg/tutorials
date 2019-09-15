@@ -3,7 +3,7 @@
 ## API documentation
 
 ### Rate limit
-The API have rate limitation allowing only 60 requests per hour. 
+The API have rate limitation allowing only 60 requests per hour. The following HTTP headers reveals current status.
 
 __X-RateLimit-Limit__ - The maximum number of requests you're permitted to make per hour.
 
@@ -24,7 +24,7 @@ curl -i --header "Content-Type: application/json" \
 HTTP/1.1 200 OK
 X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 59
-X-RateLimit-Reset: 1568548997343
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 1908

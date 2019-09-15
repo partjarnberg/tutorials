@@ -3,7 +3,15 @@ This is an intentionally slow running REST API :)
 
 The service provides functionality for students to register at the University. Also they can register/unregister for courses they plan to attend.
 ## API documentation
-All operations enabled by the API and how to interact with the service, in detail, is listed in this section. 
+All operations enabled by the API and how to interact with the service, in detail, is listed in this section.
+### Rate limit
+The API have rate limitation allowing 3600 requests per hour. The following HTTP headers reveals current status. 
+
+__X-RateLimit-Limit__ - The maximum number of requests you're permitted to make per hour.
+
+__X-RateLimit-Remaining__ - The number of requests remaining in the current rate limit window.
+
+__X-RateLimit-Reset__ - The time at which the current rate limit window resets in UTC epoch seconds. 
 ### GET /api/students
 Get all students being registered at the University.
 ```
@@ -12,7 +20,10 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:8080/api/students
 ``` 
 ``` 
-HTTP/1.1 200 OK
+HTTP/1.1 200 OK   
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3599
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 15
@@ -29,7 +40,10 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:8080/api/students
 ```
 ```
-HTTP/1.1 201 Created
+HTTP/1.1 201 Created    
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3598
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Location: /api/students/60fbbd6f-c174-4c48-857f-ef42bd601619
 Content-Type: application/json;charset=utf-8
@@ -46,7 +60,10 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:8080/api/students/60fbbd6f-c174-4c48-857f-ef42bd601619
 ```
 ``` 
-HTTP/1.1 200 OK
+HTTP/1.1 200 OK            
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3597
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 66
@@ -61,7 +78,10 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:8080/api/students/bda23d31-6441-45e2-bce6-0081e879043a/courses
 ```                  
 ```                  
-HTTP/1.1 200 OK
+HTTP/1.1 200 OK  
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3596
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 14
@@ -77,7 +97,10 @@ curl -i --header "Content-Type: application/json" \
   http://localhost:8080/api/courses
 ```
 ```   
-HTTP/1.1 200 OK
+HTTP/1.1 200 OK  
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3595
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 13763
@@ -97,6 +120,9 @@ curl -i --header "Content-Type: application/json" \
 ```
 ``` 
 HTTP/1.1 200 OK
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3594
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 425
@@ -113,6 +139,9 @@ curl -i --header "Content-Type: application/json" \
 ```
 ```  
 HTTP/1.1 200 OK
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3593
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 63
@@ -130,6 +159,9 @@ curl -i --header "Content-Type: application/json" \
 ```
 ```
 HTTP/1.1 200 OK
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3592
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 129
@@ -147,10 +179,31 @@ curl -i --header "Content-Type: application/json" \
 ```
 ```
 HTTP/1.1 200 OK
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 3591
+X-RateLimit-Reset: 1568550069
 Connection: keep-alive
 Content-Type: application/json;charset=utf-8
 Content-Length: 63
 Date: Thu, 12 Sep 2019 20:07:39 GMT
 
 {"id":"7071336b-28b9-481c-9d6d-fb5939afe9a4","participants":[]}
+```      
+### Exceeding the rate limit
+If you happen to exceed the rate limit of 60 requests per hour. You will be facing a _429 Too Many Requests_.
+Also by inspecting the HTTP Headers you can find the __X-RateLimit-Reset__ which is: _The time at which the current rate limit window resets in UTC epoch seconds._
+```
+curl -i --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/api/courses/7071336b-28b9-481c-9d6d-fb5939afe9a4/participants
+```
+``` 
+HTTP/1.1 429 Too Many Requests
+X-RateLimit-Limit: 3600
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1568550069
+Connection: keep-alive
+Content-Type: application/json;charset=utf-8
+Content-Length: 30
+Date: Sun, 15 Sep 2019 11:24:46 GMT
 ```

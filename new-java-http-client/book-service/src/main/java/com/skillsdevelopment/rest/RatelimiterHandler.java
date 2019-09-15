@@ -34,6 +34,7 @@ public class RatelimiterHandler implements HttpHandler {
             .build(new CacheLoader<>() {
                 @Override
                 public RateLimit load(final InetAddress ignore) {
+                    LOGGER.debug("Adding rate limit for {}", ignore);
                     return new RateLimit();
                 }
             });
@@ -61,7 +62,7 @@ public class RatelimiterHandler implements HttpHandler {
     }
 
     private static class RateLimit {
-        private static final Long LIMIT = 5L;
+        private static final Long LIMIT = 60L;
         private final Instant reset;
         private AtomicLong remaining;
 

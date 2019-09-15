@@ -1,0 +1,29 @@
+version: '3'
+services:
+  book-service:
+    build: .
+    restart: always
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
+    command: java -jar book-service/build/libs/book-service-1.0-SNAPSHOT-all.jar -httpPort 8081
+  university-service:
+    build: .
+    restart: always
+    ports:
+      - 8082:8082
+    expose:
+      - 8082
+    command: java -jar university-service/build/libs/university-service-1.0-SNAPSHOT-all.jar -httpPort 8082
+  webapp:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    command: java -jar build/libs/new-java-http-client-1.0-SNAPSHOT-all.jar -httpPort 8080
+    depends_on:
+      - book-service
+      - university-service

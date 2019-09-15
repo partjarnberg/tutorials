@@ -1,3 +1,4 @@
 rootProject.name = 'new-java-http-client'
-include 'slow-rest-api'
+include 'university-service'
+include 'book-service'
 

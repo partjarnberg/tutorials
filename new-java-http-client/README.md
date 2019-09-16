@@ -1,5 +1,19 @@
 # New Java HTTP client
 
+## Scenario
+Develop the next generation school system.
+
+You are about to develop a web service letting a student register for THE University, apply for a couple of courses for the upcoming semester. 
+Furthermore, the student should have the possibility to extract a list of course literature to plan the semester.
+
+Requirements
+ * Develop a backend aggregating the two services _university-service_ and _book-service_. Transform and possibly add data and expose it all through a REST API serving JSON.
+ * Non-blocking 
+ * Asynchronous - the backend should be written in an asynchronous manner
+
+__Bonus:__ _add functionality to make an economical forecast when book must be bought based on course start date and the current price of the book._    
+
+## Implementation
 [![java12](https://img.shields.io/badge/java-12-blue.svg?longCache=true&style=for-the-badge)](https://docs.oracle.com/en/java/javase/12/) 
 [![http client](https://img.shields.io/badge/http--client-http/2-red.svg?longCache=true&style=for-the-badge)](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/package-summary.html)
 

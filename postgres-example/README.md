@@ -55,7 +55,7 @@ Select some films
            group by primaryname,
                     p.birthyear,
                     p.deathyear,
-                    p.primaryprofession limit 1000;
+                    p.primaryprofession limit 10;
                     
 Takes forever? Create index                     
 
@@ -76,7 +76,7 @@ Then run the same query again
        group by primaryname,
                 p.birthyear,
                 p.deathyear,
-                p.primaryprofession limit 1000;
+                p.primaryprofession limit 10;
       primaryname   | birthyear | deathyear |        primaryprofession         |                                      famoustitles
     ----------------+-----------+-----------+----------------------------------+----------------------------------------------------------------------------------------
      +/-            |           |           | soundtrack                       | {"Wicker Park",Rakenrol}

@@ -91,7 +91,7 @@ Then run the same query again.
      100 Derece     |           |           | composer                         | {"Günesin Oglu"}
     (10 rows)
     
-Voila! It's only 10 rows, but try with 1000, 10000 or even 100000. The query will still be pretty fast. 
+Voila! It's only 10 rows, but try with 1000, 10000 or even 100000. The query will still perform pretty fast. 
 
 But what about full text searches? ;) Maybe its time to look into [Elasticsearch](https://www.elastic.co) or similar?
 

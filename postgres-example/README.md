@@ -12,7 +12,7 @@ Then
 
 Login to container and create a database
 
-    ➜  ~ docker exec -it 114465764dcd bash
+    ➜  ~ docker exec -it 2ed0a0562609 bash
     root@2ed0a0562609:/# psql -U postgres
     psql (11.5 (Debian 11.5-1.pgdg90+1))
     Type "help" for help.

@@ -3,10 +3,7 @@
 ## Run it
     docker-compose -f stack.yml up
 
-Inspect the database - open a browser and inspect database at
-    http://localhost:8080 System: PostgreSQL user:postgres password: example
-
-Then open a terminal and run
+Then
 
     ➜  ~ docker ps
     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
@@ -20,32 +17,35 @@ Login to container and create a database
     psql (11.5 (Debian 11.5-1.pgdg90+1))
     Type "help" for help.
     
-    postgres=# CREATE DATABASE imdb;
-    CREATE DATABASE
     postgres=# \q
+    root@7c32474c85f2:/# psql -U postgres imdb
+    psql (11.5 (Debian 11.5-1.pgdg90+1))
+    Type "help" for help.
+    
+    imdb=#
 
 ## Download data from IMDB
-Download name.basics.tsv.gz and title.basics.tsv.gz from [IMDB](https://datasets.imdbws.com/).
+Download name.basics.tsv.gz and title.basics.tsv.gz from IMDB https://datasets.imdbws.com/.
 
-Extract the packages and place files in `data/name-data.tsv` and `data/title-data.tsv`. They will contain tab separated values (.tsv-file).
+Extract the packages. They will contain tab separated values (.tsv-file).
 
 Create table for names.
 
-    postgres=# CREATE TABLE imdb_name (nconst VARCHAR, primaryName VARCHAR, birthYear VARCHAR, deathYear VARCHAR, primaryProfession VARCHAR, knownForTitles VARCHAR);
+    imdb=# CREATE TABLE imdb_name (nconst VARCHAR, primaryName VARCHAR, birthYear VARCHAR, deathYear VARCHAR, primaryProfession VARCHAR, knownForTitles VARCHAR);
     CREATE TABLE
-    postgres=# COPY imdb_name FROM '/opt/data/name-data.tsv';
+    imdb=# COPY imdb_name FROM '/opt/data/name-data.tsv';
     COPY 9613244
     
 Create table for titles.
 
-    postgres=# CREATE TABLE imdb_title (tconst VARCHAR, titleType VARCHAR, primaryTitle VARCHAR, originalTitle VARCHAR, isAdult VARCHAR, startYear VARCHAR, endYear VARCHAR, runtimeMinutes VARCHAR, genres VARCHAR);
+    imdb=# CREATE TABLE imdb_title (tconst VARCHAR, titleType VARCHAR, primaryTitle VARCHAR, originalTitle VARCHAR, isAdult VARCHAR, startYear VARCHAR, endYear VARCHAR, runtimeMinutes VARCHAR, genres VARCHAR);
     CREATE TABLE
-    postgres=# COPY imdb_name FROM '/opt/data/title-data.tsv';
+    imdb=# COPY imdb_title FROM '/opt/data/title-data.tsv';
     COPY 6205364
 
 Select some films  
 
-    postgres=# SELECT p.primaryname,
+    imdb=# SELECT p.primaryname,
                   p.birthyear,
                   p.deathyear,
                   p.primaryprofession,
@@ -59,14 +59,14 @@ Select some films
                     
 Takes forever? Create index                     
 
-    postgres=# CREATE INDEX IF NOT EXISTS name_index ON imdb_name (primaryname, birthyear, deathyear, primaryprofession);
+    imdb=# CREATE INDEX IF NOT EXISTS name_index ON imdb_name (primaryname, birthyear, deathyear, primaryprofession);
     CREATE INDEX
-    postgres=# CREATE INDEX IF NOT EXISTS title_index ON imdb_title (tconst);
+    imdb=# CREATE INDEX IF NOT EXISTS title_index ON imdb_title (tconst);
     CREATE INDEX
 
 Then run the same query again
 
-    postgres=# SELECT p.primaryname,
+    imdb=# SELECT p.primaryname,
               p.birthyear,
               p.deathyear,
               p.primaryprofession,
@@ -92,3 +92,14 @@ Then run the same query again
     (10 rows)
     
 Voila! But what about full text searches? ;)
+
+## Inspect the database using adminer 
+Inspect the database - open a browser and inspect database at
+    
+    http://localhost:8080 
+    
+__System:__ PostgreSQL 
+__Server:__ db
+__Username:__ postgres 
+__Password:__ example
+__Database:__ imdb

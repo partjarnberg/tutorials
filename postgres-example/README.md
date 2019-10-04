@@ -25,7 +25,7 @@ Login to container and create a database
     imdb=#
 
 ## Download data from IMDB
-Download name.basics.tsv.gz and title.basics.tsv.gz from IMDB https://datasets.imdbws.com/.
+Download name.basics.tsv.gz and title.basics.tsv.gz from [IMDB](https://datasets.imdbws.com/).
 
 Extract the packages. They will contain tab separated values (.tsv-file).
 
@@ -94,12 +94,14 @@ Then run the same query again
 Voila! But what about full text searches? ;)
 
 ## Inspect the database using adminer 
-Inspect the database - open a browser and inspect database at
-    
-    http://localhost:8080 
+Inspect the database - open a browser and inspect database at [http://localhost:8080](http://localhost:8080)
     
 __System:__ PostgreSQL 
+
 __Server:__ db
+
 __Username:__ postgres 
+
 __Password:__ example
+
 __Database:__ imdb

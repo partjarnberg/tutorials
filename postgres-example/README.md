@@ -17,6 +17,8 @@ Login to container and create a database
     psql (11.5 (Debian 11.5-1.pgdg90+1))
     Type "help" for help.
     
+    postgres=# CREATE DATABASE imdb;
+    CREATE DATABASE
     postgres=# \q
     root@7c32474c85f2:/# psql -U postgres imdb
     psql (11.5 (Debian 11.5-1.pgdg90+1))

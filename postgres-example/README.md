@@ -27,6 +27,7 @@ Login to container and create a database
 Download name.basics.tsv.gz and title.basics.tsv.gz from [IMDB](https://datasets.imdbws.com/).
 
 Extract the packages. They will contain tab separated values (.tsv-file).
+Place the files in the __data__ folder of this project (the volume is mounted in the container).
 
 Create table for names.
 

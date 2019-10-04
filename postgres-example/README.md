@@ -23,7 +23,7 @@ Login to container and create a database
     You are now connected to database "imdb" as user "postgres".
     imdb=#
 
-## Download data from IMDB
+## Download and import data from IMDB
 Download name.basics.tsv.gz and title.basics.tsv.gz from [IMDB](https://datasets.imdbws.com/).
 
 Extract the packages. They will contain tab separated values (.tsv-file).
@@ -42,6 +42,7 @@ Create table for titles.
     imdb=# COPY imdb_title FROM '/opt/data/title-data.tsv';
     COPY 6205364
 
+## Start querying
 Select some films.  
 
     imdb=# SELECT p.primaryname,

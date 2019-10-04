@@ -3,7 +3,10 @@
 ## Run it
     docker-compose -f stack.yml up
 
-Then
+For failcheck - open a browser and inspect database at
+    http://localhost:8080 System: PostgreSQL user:postgres password: example
+
+Then open a terminal and run
 
     ➜  ~ docker ps
     CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES

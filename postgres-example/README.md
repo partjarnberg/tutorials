@@ -3,7 +3,7 @@
 ## Run it
     docker-compose -f stack.yml up
 
-For failcheck - open a browser and inspect database at
+Inspect the database - open a browser and inspect database at
     http://localhost:8080 System: PostgreSQL user:postgres password: example
 
 Then open a terminal and run

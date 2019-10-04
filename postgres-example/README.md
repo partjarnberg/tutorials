@@ -24,7 +24,7 @@ Login to container and create a database
 ## Download data from IMDB
 Download name.basics.tsv.gz and title.basics.tsv.gz from [IMDB](https://datasets.imdbws.com/).
 
-Extract the packages. They will contain tab separated values (.tsv-file).
+Extract the packages and place files in `data/name-data.tsv` and `data/title-data.tsv`. They will contain tab separated values (.tsv-file).
 
 Create table for names.
 

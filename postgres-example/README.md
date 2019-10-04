@@ -97,11 +97,7 @@ Voila! But what about full text searches? ;)
 Inspect the database - open a browser and inspect database at [http://localhost:8080](http://localhost:8080)
     
 __System:__ PostgreSQL 
-
 __Server:__ db
-
 __Username:__ postgres 
-
 __Password:__ example
-
 __Database:__ imdb

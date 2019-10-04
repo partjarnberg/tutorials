@@ -43,7 +43,7 @@ Create table for titles.
     imdb=# COPY imdb_title FROM '/opt/data/title-data.tsv';
     COPY 6205364
 
-Select some films  
+Select some films.  
 
     imdb=# SELECT p.primaryname,
                   p.birthyear,
@@ -57,14 +57,14 @@ Select some films
                     p.deathyear,
                     p.primaryprofession limit 10;
                     
-Takes forever? Create index                     
+Takes forever? Create a couple of indices.                     
 
     imdb=# CREATE INDEX IF NOT EXISTS name_index ON imdb_name (primaryname, birthyear, deathyear, primaryprofession);
     CREATE INDEX
     imdb=# CREATE INDEX IF NOT EXISTS title_index ON imdb_title (tconst);
     CREATE INDEX
 
-Then run the same query again
+Then run the same query again.
 
     imdb=# SELECT p.primaryname,
               p.birthyear,
@@ -91,7 +91,9 @@ Then run the same query again
      100 Derece     |           |           | composer                         | {"Günesin Oglu"}
     (10 rows)
     
-Voila! But what about full text searches? ;)
+Voila! It's only 10 row, but try with 1000, 10000 or even 100000. The query will still be pretty fast. 
+
+But what about full text searches? ;) Maybe its time to look into [Elasticsearch](https://www.elastic.co) or similar?
 
 ## Inspect the database using adminer 
 Inspect the database - open a browser and inspect database at [http://localhost:8080](http://localhost:8080)

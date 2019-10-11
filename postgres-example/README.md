@@ -104,13 +104,3 @@ __Server:__ db
 __Username:__ postgres 
 __Password:__ example
 __Database:__ imdb
-
-
- 
-
-
-
-
-Task | Size | Labels
---- | --- | ---
-[CTS next generation](https://github.com/cygni/competence/tree/master/cts-nextgen) | ![large](https://img.shields.io/badge/size-large-red.svg?longCache=true&style=flat)  | ![frontend](https://img.shields.io/badge/Frontend-blueviolet.svg?longCache=true&style=flat) ![fullstack](https://img.shields.io/badge/Fullstack-red.svg?longCache=true&style=flat) ![javascript](https://img.shields.io/badge/JavaScript-informational.svg?longCache=true&style=flat) ![single page application](https://img.shields.io/badge/Single_Page_Application-important.svg?longCache=true&style=flat) ![css](https://img.shields.io/badge/CSS-9cf.svg?longCache=true&style=flat) ![tdd](https://img.shields.io/badge/Test_Driven_Development-success.svg?longCache=true&style=flat)

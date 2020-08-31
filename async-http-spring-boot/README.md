@@ -471,6 +471,8 @@ And also, if there's no actual need in terms of performance requirements. Why ma
 
 Then it could be a good idea to look at alternatives like [RxJava](https://github.com/ReactiveX/RxJava) or [Akka Streams](http://doc.akka.io/docs/akka/current/java/stream/index.html)
 
+You should also learn about [backpressure](https://medium.com/@jayphelps/backpressure-explained-the-flow-of-data-through-software-2350b3e77ce7) e.g. how to handle when one server is sending requests to another faster than it can process them.
+
 
 [request-lifecycle-blocking-controller]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-blocking-controller.png "Request lifecycle with blocking controller"
 [request-lifecycle-nonblocking-controller-blocking-service]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-nonblocking-controller-blocking-service.png "Request lifecycle with non-blocking controller but with blocking service"

@@ -453,9 +453,9 @@ Logs from running non-blocking controller together with non-blocking http-client
 ```
 2017-08-24 15:36:18.618 [XNIO-2 I/O-3] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/
 2017-08-24 15:36:18.804 [XNIO-2 task-1] DEBUG c.b.bci.api.controller.ProxyController - Request path /
-2017-08-24 15:36:18.851 [XNIO-2 task-1] DEBUG com.bisnode.bci.api.client.HttpClient - Request headers: {}
-2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG com.bisnode.bci.api.client.HttpClient - Response 200 with headers {...}
-2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG com.bisnode.bci.api.controller.Functions - Responding with status 200
+2017-08-24 15:36:18.851 [XNIO-2 task-1] DEBUG se.cygni.bci.api.client.HttpClient - Request headers: {}
+2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.bci.api.client.HttpClient - Response 200 with headers {...}
+2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.bci.api.controller.Functions - Responding with status 200
 ```
 
 ### <a name="request-lifecycle-nonblocking-controller-nonblocking-service"></a>4.1 Request lifecycle
@@ -472,8 +472,8 @@ And also, if there's no actual need in terms of performance requirements. Why ma
 Then it could be a good idea to look at alternatives like [RxJava](https://github.com/ReactiveX/RxJava) or [Akka Streams](http://doc.akka.io/docs/akka/current/java/stream/index.html)
 
 
-[request-lifecycle-blocking-controller]: https://buildtools.bisnode.com/stash/projects/CIA/repos/tutorials/browse/async-http-spring-boot/request-lifecycle-blocking-controller.png?at=refs%2Fheads%2Fscreenshots&raw "Request lifecycle with blocking controller"
-[request-lifecycle-nonblocking-controller-blocking-service]: https://buildtools.bisnode.com/stash/projects/CIA/repos/tutorials/browse/async-http-spring-boot/request-lifecycle-nonblocking-controller-blocking-service.png?at=refs%2Fheads%2Fscreenshots&raw "Request lifecycle with non-blocking controller but with blocking service"
-[request-lifecycle-nonblocking-controller-nonblocking-service]: https://buildtools.bisnode.com/stash/projects/CIA/repos/tutorials/browse/async-http-spring-boot/request-lifecycle-nonblocking-controller-nonblocking-service.png?at=refs%2Fheads%2Fscreenshots&raw "Request lifecycle with non-blocking controller and with non-blocking service"
-[unhappy-man]: https://buildtools.bisnode.com/stash/projects/CIA/repos/tutorials/browse/async-http-spring-boot/unhappy-man.png?at=refs%2Fheads%2Fscreenshots&raw "Unhappy man"
-[happy-man]: https://buildtools.bisnode.com/stash/projects/CIA/repos/tutorials/browse/async-http-spring-boot/happy-man.png?at=refs%2Fheads%2Fscreenshots&raw "Unhappy man"
+[request-lifecycle-blocking-controller]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-blocking-controller.png "Request lifecycle with blocking controller"
+[request-lifecycle-nonblocking-controller-blocking-service]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-nonblocking-controller-blocking-service.png "Request lifecycle with non-blocking controller but with blocking service"
+[request-lifecycle-nonblocking-controller-nonblocking-service]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-nonblocking-controller-nonblocking-service.png "Request lifecycle with non-blocking controller and with non-blocking service"
+[unhappy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/unhappy-man.png "Unhappy man"
+[happy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/happy-man.png "Unhappy man"

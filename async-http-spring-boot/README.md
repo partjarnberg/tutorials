@@ -142,7 +142,7 @@ Logs from requesting the endpoint:
 2017-08-23 15:16:22.253 [MvcAsync1] DEBUG s.c.a.e.resource.ExternalResource - ...long running task done!
 ```
 
-#### <a name="deferred-result"></a>2.1.2 [DeferredResult](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
+#### <a name="deferred-result"></a>2.1.2 [DeferredResult](https://docs.spring.io/spring/docs/3.2.0.RELEASE/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
 DeferredResult provides an alternative to using a Callable for asynchronous request processing. While a Callable is executed concurrently on behalf of the application, with a DeferredResult the application can produce the result from a thread of its choice.
 
 DeferredResult was first introduced in Spring Framework 3.2 in 2013. 

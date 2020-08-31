@@ -88,11 +88,11 @@ public class BlockingController {
 
 Logs from requesting the endpoint:
 ```
-2017-08-23 15:14:55.990 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/blocking/test
-2017-08-23 15:14:56.074 [XNIO-2 task-1] DEBUG c.b.bci.api.example.blocking.BlockingController - Using default REST controller endpoint
-2017-08-23 15:14:56.075 [XNIO-2 task-1] DEBUG c.b.bci.api.example.service.ApiClient - Blocking API call
-2017-08-23 15:14:56.076 [XNIO-2 task-1] DEBUG c.b.b.a.e.resource.ExternalResource - Do long running task...
-2017-08-23 15:14:57.079 [XNIO-2 task-1] DEBUG c.b.b.a.e.resource.ExternalResource - ...long running task done!
+2017-08-23 15:14:55.990 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /tutorial-async for path /tutorial-async/blocking/test
+2017-08-23 15:14:56.074 [XNIO-2 task-1] DEBUG s.c.api.example.blocking.BlockingController - Using default REST controller endpoint
+2017-08-23 15:14:56.075 [XNIO-2 task-1] DEBUG s.c.api.example.service.ApiClient - Blocking API call
+2017-08-23 15:14:56.076 [XNIO-2 task-1] DEBUG s.c.a.e.resource.ExternalResource - Do long running task...
+2017-08-23 15:14:57.079 [XNIO-2 task-1] DEBUG s.c.a.e.resource.ExternalResource - ...long running task done!
 ```
 Above log entries shows that the HTTP request hits Undertow I/O thread which dispatch the workload to another thread which executes the 
 Spring Rest Controller (BlockingController). The BlockingController in turn performs a call to ApiClient which requests the external resource. 
@@ -135,11 +135,11 @@ public class NonBlockingController {
 
 Logs from requesting the endpoint:
 ```
-2017-08-23 15:16:21.228 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/nonblocking/callable/test
-2017-08-23 15:16:21.239 [XNIO-2 task-2] DEBUG c.b.b.a.e.n.NonBlockingController - Using Callable
-2017-08-23 15:16:21.248 [MvcAsync1] DEBUG c.b.bci.api.example.service.ApiClient - Blocking API call
-2017-08-23 15:16:21.248 [MvcAsync1] DEBUG c.b.b.a.e.resource.ExternalResource - Do long running task...
-2017-08-23 15:16:22.253 [MvcAsync1] DEBUG c.b.b.a.e.resource.ExternalResource - ...long running task done!
+2017-08-23 15:16:21.228 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /tutorial-async for path /tutorial-async/nonblocking/callable/test
+2017-08-23 15:16:21.239 [XNIO-2 task-2] DEBUG s.c.a.e.n.NonBlockingController - Using Callable
+2017-08-23 15:16:21.248 [MvcAsync1] DEBUG s.c.api.example.service.ApiClient - Blocking API call
+2017-08-23 15:16:21.248 [MvcAsync1] DEBUG s.c.a.e.resource.ExternalResource - Do long running task...
+2017-08-23 15:16:22.253 [MvcAsync1] DEBUG s.c.a.e.resource.ExternalResource - ...long running task done!
 ```
 
 #### <a name="deferred-result"></a>2.1.2 [DeferredResult](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html)
@@ -171,11 +171,11 @@ public class NonBlockingController {
 
 Logs from requesting the endpoint:
 ```
-2017-08-23 15:18:01.968 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/nonblocking/deferredresult/test
-2017-08-23 15:18:01.974 [XNIO-2 task-4] DEBUG c.b.b.a.e.n.NonBlockingController - Using DeferredResult
-2017-08-23 15:18:01.976 [SimpleAsyncTaskExecutor-1] DEBUG c.b.bci.api.example.service.ApiClient - Blocking API call
-2017-08-23 15:18:01.976 [SimpleAsyncTaskExecutor-1] DEBUG c.b.b.a.e.resource.ExternalResource - Do long running task...
-2017-08-23 15:18:02.979 [SimpleAsyncTaskExecutor-1] DEBUG c.b.b.a.e.resource.ExternalResource - ...long running task done!
+2017-08-23 15:18:01.968 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /tutorial-async for path /tutorial-async/nonblocking/deferredresult/test
+2017-08-23 15:18:01.974 [XNIO-2 task-4] DEBUG s.c.a.e.n.NonBlockingController - Using DeferredResult
+2017-08-23 15:18:01.976 [SimpleAsyncTaskExecutor-1] DEBUG s.c.api.example.service.ApiClient - Blocking API call
+2017-08-23 15:18:01.976 [SimpleAsyncTaskExecutor-1] DEBUG s.c.a.e.resource.ExternalResource - Do long running task...
+2017-08-23 15:18:02.979 [SimpleAsyncTaskExecutor-1] DEBUG s.c.a.e.resource.ExternalResource - ...long running task done!
 ```
 
 #### <a name="completable-future"></a>2.1.3 [CompletableFuture](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html)
@@ -202,11 +202,11 @@ public class NonBlockingController {
 
 Logs from requesting the endpoint:
 ```
-2017-08-23 15:19:01.854 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/nonblocking/supplyasync/test
-2017-08-23 15:19:01.857 [XNIO-2 task-8] DEBUG c.b.b.a.e.n.NonBlockingController - Using CompletableFuture.supplyAsync(...)
-2017-08-23 15:19:01.858 [ForkJoinPool.commonPool-worker-3] DEBUG c.b.bci.api.example.service.ApiClient - Blocking API call
-2017-08-23 15:19:01.858 [ForkJoinPool.commonPool-worker-3] DEBUG c.b.b.a.e.resource.ExternalResource - Do long running task...
-2017-08-23 15:19:02.862 [ForkJoinPool.commonPool-worker-3] DEBUG c.b.b.a.e.resource.ExternalResource - ...long running task done!
+2017-08-23 15:19:01.854 [XNIO-2 I/O-2] DEBUG io.undertow.request - Matched prefix path /tutorial-async for path /tutorial-async/nonblocking/supplyasync/test
+2017-08-23 15:19:01.857 [XNIO-2 task-8] DEBUG s.c.a.e.n.NonBlockingController - Using CompletableFuture.supplyAsync(...)
+2017-08-23 15:19:01.858 [ForkJoinPool.commonPool-worker-3] DEBUG s.c.api.example.service.ApiClient - Blocking API call
+2017-08-23 15:19:01.858 [ForkJoinPool.commonPool-worker-3] DEBUG s.c.a.e.resource.ExternalResource - Do long running task...
+2017-08-23 15:19:02.862 [ForkJoinPool.commonPool-worker-3] DEBUG s.c.a.e.resource.ExternalResource - ...long running task done!
 ```
 
 #### <a name="request-lifecycle-nonblocking-controller-blocking-service"></a>2.1.4 Request lifecycle
@@ -451,11 +451,11 @@ public class NonBlockingController {
 
 Logs from running non-blocking controller together with non-blocking http-client:
 ```
-2017-08-24 15:36:18.618 [XNIO-2 I/O-3] DEBUG io.undertow.request - Matched prefix path /bci-tutorial-async for path /bci-tutorial-async/
-2017-08-24 15:36:18.804 [XNIO-2 task-1] DEBUG c.b.bci.api.controller.ProxyController - Request path /
-2017-08-24 15:36:18.851 [XNIO-2 task-1] DEBUG se.cygni.bci.api.client.HttpClient - Request headers: {}
-2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.bci.api.client.HttpClient - Response 200 with headers {...}
-2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.bci.api.controller.Functions - Responding with status 200
+2017-08-24 15:36:18.618 [XNIO-2 I/O-3] DEBUG io.undertow.request - Matched prefix path /tutorial-async for path /tutorial-async/
+2017-08-24 15:36:18.804 [XNIO-2 task-1] DEBUG s.c.api.controller.ProxyController - Request path /
+2017-08-24 15:36:18.851 [XNIO-2 task-1] DEBUG se.cygni.api.client.HttpClient - Request headers: {}
+2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.api.client.HttpClient - Response 200 with headers {...}
+2017-08-24 15:36:19.856 [I/O dispatcher 1] DEBUG se.cygni.api.controller.Functions - Responding with status 200
 ```
 
 ### <a name="request-lifecycle-nonblocking-controller-nonblocking-service"></a>4.1 Request lifecycle

@@ -475,5 +475,5 @@ Then it could be a good idea to look at alternatives like [RxJava](https://githu
 [request-lifecycle-blocking-controller]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-blocking-controller.png "Request lifecycle with blocking controller"
 [request-lifecycle-nonblocking-controller-blocking-service]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-nonblocking-controller-blocking-service.png "Request lifecycle with non-blocking controller but with blocking service"
 [request-lifecycle-nonblocking-controller-nonblocking-service]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/request-lifecycle-nonblocking-controller-nonblocking-service.png "Request lifecycle with non-blocking controller and with non-blocking service"
-[unhappy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/unhappy-man.png "Unhappy man"
-[happy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/happy-man.png "Unhappy man"
+[unhappy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/complaining-man.png "Unhappy man"
+[happy-man]: https://raw.githubusercontent.com/partjarnberg/tutorials/master/async-http-spring-boot/happy-man.png "Happy man"

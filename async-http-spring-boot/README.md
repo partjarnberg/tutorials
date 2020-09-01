@@ -6,7 +6,7 @@ This is a tutorial written in a blog post format with the purpose of elaborating
   * [1.1 Time consuming task](#time-consuming-task)
   * [1.2 Blocking controller](#blocking-controller)
     * [1.2.1 Request lifecycle](#request-lifecycle-blocking-controller)
-* [2. Spring support for NIO and Servlet 3.x sepcification](#spring-support-nio-servlet-3)
+* [2. Spring support for NIO and Servlet 3.x specification](#spring-support-nio-servlet-3)
   * [2.1 Non-blocking controller](#non-blocking-controller)
     * [2.1.1 Callable](#callable)
     * [2.1.2 DeferredResult](#deferred-result")
@@ -103,7 +103,7 @@ Lets take a look at the request lifecycle when using a blocking controller.
 
 ![Request lifecycle - blocking controller][request-lifecycle-blocking-controller]
 
-## <a name="spring-support-nio-servlet-3"></a>2. Spring support for NIO and Servlet 3.x sepcification
+## <a name="spring-support-nio-servlet-3"></a>2. Spring support for NIO and Servlet 3.x specification
 In 2009 the [Servlet 3.0 specification](https://jcp.org/en/jsr/detail?id=315) was released. One part of this specification is the standardization of how to perform non-blocking processing against underlying web servers. A non-blocking application can be deployed on any web server that supports the Servlet 3.0 specification.
 With Spring Boot and its embedded web servers this means Tomcat, Undertow, Jetty etc.
 

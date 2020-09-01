@@ -3,7 +3,7 @@ This is a tutorial written in a blog post format with the purpose of elaborating
 
 ---
 
-**UPDATE!** _Since this tutorial was written a new non-blocking [HTTP Client](https://docs.oracle.com/en/java/javase/14/docs/api/java.net.http/java/net/http/HttpClient.html) has been introduced since Java 11. Also Spring have created [WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) with its [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) targeted to a reactive programming model. However the foundation is still the same and it is still important as programmer to understand the basic concepts and boundaries of asynchronous programming._
+**UPDATE!** _Since this tutorial was written a new non-blocking [HTTP Client](https://docs.oracle.com/en/java/javase/14/docs/api/java.net.http/java/net/http/HttpClient.html) has been introduced since Java 11. Also Spring have created [WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) with its [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) targeted to a reactive programming model. However the foundation is still the same and it is still important as a programmer to understand the basic concepts and boundaries of asynchronous programming._
 
 ---
 

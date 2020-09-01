@@ -1,6 +1,12 @@
 # Tutorial - Non-blocking Spring @RestController and http-client 
 This is a tutorial written in a blog post format with the purpose of elaborating on non-blocking REST services as well as non-blocking http-clients in Java and Spring in particular.
 
+---
+
+**UPDATE!** _Since this tutorial was written a new non-blocking [HTTP Client](https://docs.oracle.com/en/java/javase/14/docs/api/java.net.http/java/net/http/HttpClient.html) has been introduced since Java 11. Also Spring have created [WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) with its [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) targeted to a reactive programming model. However the foundation is still the same and it is still important as programmer to understand the basic concepts and boundaries of asynchronous programming._
+
+---
+
 ## Table of Contents
 * [1. Background](#background)
   * [1.1 Time consuming task](#time-consuming-task)
@@ -229,9 +235,6 @@ to dispatch I/O events (connected, inputready, outputready, timeout, disconnecte
 and instead free the connection for others to use when waiting for a response event.
 
 ### <a name="non-blocking-http-client"></a>3.2 Non-blocking http-client
-
-**UPDATE** Since this tutorial was written a new non-blocking [HTTP Client](https://docs.oracle.com/en/java/javase/14/docs/api/java.net.http/java/net/http/HttpClient.html) has been introduced since Java 11. Also Spring have created [WebFlux](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html) with its [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client). All targeted to a reactive programming model. However the foundation is still the same and it is still important as programmer to understand the basic concepts and boundaries of asynchronous programming.
-
 In our case the most interesting resource client would be a __non-blocking http-client__ since we are mostly consuming various REST API:s.
 Some of which are really fast and some are annoyingly slow. It would be a good fit consuming those services in a non-blocking I/O manner.
 

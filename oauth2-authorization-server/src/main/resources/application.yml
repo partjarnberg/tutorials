@@ -1,0 +1,48 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  forward-headers-strategy: FRAMEWORK
+
+spring:
+  jackson:
+    serialization:
+      indent_output: true
+  servlet:
+    multipart:
+      max-file-size: 2GB
+      max-request-size: 2GB
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+
+security:
+  oauth2:
+    clientId: v44LXhKkb9
+    clientSecret: NGt8YG85Va828xaGxuL87Jwx
+    redirectUris: https://frontend.local/oauth2Callback,http://localhost:8080/api
+    grantTypes: authorization_code,refresh_token
+    scopes: any
+  jwt:
+    signingKey: w(3$uNK.]Z9~[3Y
+
+accounts:
+  users:
+    - email: admin@programmers.buzz
+      password: 5VmHyLCKxf68
+      roles: ADMIN
+      firstName: Super
+      lastName: Hero
+    - email: per.elofsson@programmers.buzz
+      password: K6uT2nJmrVVv
+      roles: USER
+      firstName: Per
+      lastName: Elofsson
+    - email: markus.hellner@programmers.buzz
+      password: r8mX6YAD3j5P
+      roles: USER
+      firstName: Markus
+      lastName: Hellner

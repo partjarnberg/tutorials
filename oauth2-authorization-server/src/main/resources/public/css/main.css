@@ -1,0 +1,231 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+    margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+body {
+    background-color: #E5E5E5;
+    font-family: Open Sans, serif;
+    margin-top: 52px;
+}
+
+.container {
+    max-width: 700px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 4px 16px;
+    min-height: 440px;
+}
+
+.info-message {
+    margin-bottom: 10px;
+    display: block;
+    min-height: 50px;
+}
+
+.container h1 {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 49px;
+    letter-spacing: 0.01em;
+    color: #000000;
+    text-align: center;
+}
+
+.container h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0.01em;
+    color: #999999;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-signin {
+    max-width: 565px;
+}
+
+.buttons {
+    display: block;
+    min-height: 50px;
+}
+
+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle  {
+    background: #226DA0;
+    border-radius: 4px;
+    border: none;
+    width: 260px;
+    float: right;
+}
+
+.logo {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 16px;
+    max-width: 500px;
+    text-align: center;
+    font-family: source sans pro,Helvetica,sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 0 0 25px #333, 0 0 5px #333;
+}
+
+.forgot-password, .forgot-password:active, .forgot-password:hover {
+    font-family: Open Sans, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: center;
+    text-decoration-line: underline;
+
+    color: #000000;
+}
+
+
+input[type="text"], input[type="password"], textarea, .form-control, .form-control:focus, .form-signin .form-control,
+.form-signin input[type="password"] {
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    margin-bottom: 16px;
+}
+
+.password-icon {
+    background-image: url(/images/password-eye.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 40px;
+    height: 60px;
+    position: relative;
+    margin: -60px 0 0 0;
+    display: block;
+    border-right: 8px solid transparent;
+    float: right;
+}
+
+label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.alert {
+    margin-bottom: 0;
+}
+
+.small, small {
+    font-size: 80%;
+    font-weight: 400;
+}
+
+a, a:active, a:hover {
+    color: #868e96!important;
+    text-decoration: underline;
+}

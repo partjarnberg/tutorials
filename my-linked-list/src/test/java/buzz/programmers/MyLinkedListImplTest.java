@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MyLinkedListImplTest {
 
@@ -101,6 +102,20 @@ class MyLinkedListImplTest {
         assertThat(myLinkedList.contains("Teddybear")).isTrue();
         assertThat(myLinkedList.contains("Marbles")).isTrue();
         assertThat(myLinkedList.contains("Something else")).isFalse();
+    }
+
+    @Test
+    void clear() {
+        myLinkedList.add("Car");
+        myLinkedList.add("Ball");
+        myLinkedList.add("Basket");
+        assertThat(myLinkedList.size()).isEqualTo(3);
+
+        myLinkedList.clear();
+        assertThat(myLinkedList.size()).isEqualTo(0);
+        assertThatThrownBy(() -> myLinkedList.get(0)).isInstanceOf(IndexOutOfBoundsException.class);
+        assertThat(myLinkedList.getFirst()).isNull();
+        assertThat(myLinkedList.getLast()).isNull();
     }
 
     @Test

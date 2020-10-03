@@ -94,8 +94,6 @@ Then run the same query again.
     
 Voila! It's only 10 rows, but try with 1000, 10000 or even 100000. The query will still perform pretty fast. 
 
-But what about full text searches? ;) Maybe its time to look into [Elasticsearch](https://www.elastic.co) or similar?
-
 ## Inspect the database using adminer 
 Inspect the database - open a browser and inspect database at [http://localhost:8080](http://localhost:8080)
     
@@ -104,3 +102,7 @@ __Server:__ db
 __Username:__ postgres 
 __Password:__ example
 __Database:__ imdb
+
+## Extending the task
+One suggestion for extending the task could be to support fuzzy search where users are allowed to spell incorrectly. 
+This could be done with the help of Postgres using [fuzzystrmatch](https://www.postgresql.org/docs/13/fuzzystrmatch.html) extension. Or, if you are curious about learning about [Elasticsearch](https://www.elastic.co/), that could also be an alternative.

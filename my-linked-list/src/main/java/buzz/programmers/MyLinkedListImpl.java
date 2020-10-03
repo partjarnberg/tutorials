@@ -132,6 +132,51 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
     }
 
     @Override
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(index);
+        }
+
+        if (size == 1) {
+            final T data = getFirst();
+            clear();
+            return data;
+        }
+
+        Node current = first;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        final T data = current.data;
+        if (current == first) {
+            first = current.next;
+            first.prev = null;
+        } else if (current == last) {
+            last = current.prev;
+            last.next = null;
+        } else {
+            current.prev.next = current.next;
+            current.next.prev = current.prev;
+        }
+        --size;
+        return data;
+    }
+
+    @Override
+    public boolean remove(final T element) {
+        Node current = first;
+        for (int i = 0; i < size; i++) {
+            if (current.data.equals(element)) {
+                remove(i);
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    @Override
     public boolean contains(final Object o) {
         Node current = first;
         for (int i = 0; i < size; i++) {

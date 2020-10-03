@@ -87,6 +87,48 @@ class MyLinkedListImplTest {
     }
 
     @Test
+    void removeIndex() {
+        myLinkedList.add("a");
+        myLinkedList.add("b");
+        myLinkedList.add("c");
+        myLinkedList.add("d");
+        assertThat(myLinkedList.remove(0)).isEqualTo("a");
+        assertThat(myLinkedList.remove(1)).isEqualTo("c");
+        assertThat(myLinkedList.remove(1)).isEqualTo("d");
+        assertThat(myLinkedList.size()).isEqualTo(1);
+    }
+
+    @Test
+    void removeObject() {
+        myLinkedList.add("a");
+        myLinkedList.add("b");
+        myLinkedList.add("c");
+        myLinkedList.add("d");
+        assertThat(myLinkedList.remove("a")).isTrue();
+        assertThat(myLinkedList.remove("c")).isTrue();
+        assertThat(myLinkedList.remove("d")).isTrue();
+        assertThat(myLinkedList.remove("a")).isFalse();
+        assertThat(myLinkedList.size()).isEqualTo(1);
+        assertThat(myLinkedList.remove("b")).isTrue();
+        assertThat(myLinkedList.size()).isEqualTo(0);
+    }
+
+    @Test
+    void variousOperations() {
+        myLinkedList.add("a");
+        myLinkedList.add("b");
+        myLinkedList.remove("a");
+        myLinkedList.add("c");
+        myLinkedList.add("d");
+        myLinkedList.add("e");
+        myLinkedList.remove("b");
+        myLinkedList.remove(2);
+        myLinkedList.add("f");
+        assertThat(myLinkedList.size()).isEqualTo(3);
+        assertThat(myLinkedList.getFirst()).isEqualTo("c");
+    }
+
+    @Test
     void contains() {
         myLinkedList.add("Car");
         myLinkedList.add("Ball");

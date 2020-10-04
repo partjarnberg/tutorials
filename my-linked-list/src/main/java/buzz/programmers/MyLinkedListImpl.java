@@ -1,10 +1,14 @@
 package buzz.programmers;
 
+import org.javatuples.Pair;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static java.util.stream.IntStream.range;
 
 public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
@@ -32,13 +36,9 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return true;
         }
 
-        Node current = first;
-        while (nonNull(current.next)) {
-            current = current.next;
-        }
-
-        last = current.next = newNode;
-        newNode.prev = current;
+        last.next = newNode;
+        newNode.prev = last;
+        last = newNode;
         ++size;
         return true;
     }
@@ -77,6 +77,7 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return;
         }
         final Node newNode = new Node(element);
+        first.prev = newNode;
         newNode.next = first;
         first = newNode;
         ++size;
@@ -84,14 +85,7 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
     @Override
     public void addLast(final T element) {
-        if(0 == size) {
-            add(element);
-            return;
-        }
-        final Node newNode = new Node(element);
-        last.next = newNode;
-        last = newNode;
-        ++size;
+        add(element);
     }
 
     @Override
@@ -114,11 +108,10 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return last.data;
         }
 
-        Node current = first;
-        for (int i = 1; i <= index; i++) {
-            current = current.next;
-        }
-        return current.data;
+        final AtomicReference<Node> current = new AtomicReference<>(first);
+        range(0, index).forEach(ignored -> current.set(current.get().next));
+
+        return current.get().data;
     }
 
     @Override
@@ -143,21 +136,20 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return data;
         }
 
-        Node current = first;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        final AtomicReference<Node> current = new AtomicReference<>(first);
+        range(0, index).forEach(ignored -> current.set(current.get().next));
+        final Node currentNode = current.get();
 
-        final T data = current.data;
-        if (current == first) {
-            first = current.next;
+        final T data = currentNode.data;
+        if (currentNode == first) {
+            first = currentNode.next;
             first.prev = null;
-        } else if (current == last) {
-            last = current.prev;
+        } else if (currentNode == last) {
+            last = currentNode.prev;
             last.next = null;
         } else {
-            current.prev.next = current.next;
-            current.next.prev = current.prev;
+            currentNode.prev.next = currentNode.next;
+            currentNode.next.prev = currentNode.prev;
         }
         --size;
         return data;
@@ -165,27 +157,26 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
     @Override
     public boolean remove(final T element) {
-        Node current = first;
-        for (int i = 0; i < size; i++) {
-            if (current.data.equals(element)) {
-                remove(i);
-                return true;
-            }
-            current = current.next;
+        final AtomicReference<Pair<Integer, Node>> current = new AtomicReference<>(Pair.with(0, first));
+        range(0, size)
+                .takeWhile(ignored -> !current.get().getValue1().data.equals(element))
+                .forEach(index -> current.set(Pair.with(index + 1, current.get().getValue1().next)));
+
+        final Node currentNode = current.get().getValue1();
+        if (nonNull(currentNode) && currentNode.data.equals(element)) {
+            remove(current.get().getValue0());
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean contains(final Object o) {
-        Node current = first;
-        for (int i = 0; i < size; i++) {
-            if(current.data.equals(o)) {
-                return true;
-            }
-            current = current.next;
-        }
-        return false;
+        final AtomicReference<Node> current = new AtomicReference<>(first);
+        range(0, size)
+                .takeWhile(ignored -> !current.get().data.equals(o))
+                .forEach(ignored -> current.set(current.get().next));
+        return nonNull(current.get()) && o.equals(current.get().data);
     }
 
     @Override

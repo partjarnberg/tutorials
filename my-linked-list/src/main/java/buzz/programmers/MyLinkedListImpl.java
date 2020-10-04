@@ -9,7 +9,6 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.IntStream.range;
 
 public class MyLinkedListImpl<T> implements MyLinkedList<T> {
-
     private Node first = null;
     private Node last = null;
     private int size = 0;
@@ -30,13 +29,11 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
         if (isNull(first)) {
             first = last = newNode;
-            ++size;
-            return true;
+        } else {
+            last.next = newNode;
+            newNode.prev = last;
+            last = newNode;
         }
-
-        last.next = newNode;
-        newNode.prev = last;
-        last = newNode;
         ++size;
         return true;
     }
@@ -108,12 +105,18 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
 
     @Override
     public T getFirst() {
-        return nonNull(first) ? first.data : null;
+        if(isNull(first)) {
+            throw new NoSuchElementException();
+        }
+        return first.data;
     }
 
     @Override
     public T getLast() {
-        return nonNull(last) ? last.data : null;
+        if(isNull(last)) {
+            throw new NoSuchElementException();
+        }
+        return last.data;
     }
 
     @Override
@@ -126,13 +129,13 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         return range(0, size)
                 .mapToObj(ignore -> current.getAndSet(current.get().next))
                 .skip(index).findFirst()
-                .map(node -> {
-                    final T data = node.data;
+                .map(remove -> {
+                    final T data = remove.data;
                     if (size == 1) {
                         clear();
                         return data;
                     }
-                    removeSingle(node);
+                    removeSingle(remove);
                     --size;
                     return data;
                 }).orElseThrow();
@@ -144,11 +147,11 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         return range(0, size)
                 .mapToObj(ignore -> current.getAndSet(current.get().next))
                 .filter(node -> node.data.equals(element))
-                .findFirst().stream().anyMatch(node -> {
+                .findFirst().stream().anyMatch(remove -> {
                     if (size == 1) {
                         clear();
                     } else {
-                        removeSingle(node);
+                        removeSingle(remove);
                         --size;
                     }
                     return true;
@@ -190,16 +193,16 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         };
     }
 
-    private void removeSingle(final Node currentNode) {
-        if (currentNode == first) {
-            first = currentNode.next;
+    private void removeSingle(final Node remove) {
+        if (remove == first) {
+            first = remove.next;
             first.prev = null;
-        } else if (currentNode == last) {
-            last = currentNode.prev;
+        } else if (remove == last) {
+            last = remove.prev;
             last.next = null;
         } else {
-            currentNode.prev.next = currentNode.next;
-            currentNode.next.prev = currentNode.prev;
+            remove.prev.next = remove.next;
+            remove.next.prev = remove.prev;
         }
     }
 }

@@ -3,8 +3,10 @@ package buzz.programmers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.util.stream.StreamSupport.stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -70,6 +72,7 @@ class MyLinkedListImplTest {
 
     @Test
     void getFirst() {
+        assertThatThrownBy(() -> myLinkedList.getFirst()).isInstanceOf(NoSuchElementException.class);
         myLinkedList.add("a");
         myLinkedList.add("b");
         myLinkedList.add("c");
@@ -79,11 +82,21 @@ class MyLinkedListImplTest {
 
     @Test
     void getLast() {
+        assertThatThrownBy(() -> myLinkedList.getLast()).isInstanceOf(NoSuchElementException.class);
         myLinkedList.add("a");
         myLinkedList.add("b");
         myLinkedList.add("c");
         myLinkedList.add("d");
         assertThat(myLinkedList.getLast()).isEqualTo("d");
+    }
+
+    @Test
+    void getIndex() {
+        assertThatThrownBy(() -> myLinkedList.get(-1)).isInstanceOf(IndexOutOfBoundsException.class);
+        assertThatThrownBy(() -> myLinkedList.get(0)).isInstanceOf(IndexOutOfBoundsException.class);
+        myLinkedList.add("a");
+        assertThat(myLinkedList.get(0)).isEqualTo("a");
+        assertThatThrownBy(() -> myLinkedList.get(1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @Test
@@ -156,8 +169,8 @@ class MyLinkedListImplTest {
         myLinkedList.clear();
         assertThat(myLinkedList.size()).isEqualTo(0);
         assertThatThrownBy(() -> myLinkedList.get(0)).isInstanceOf(IndexOutOfBoundsException.class);
-        assertThat(myLinkedList.getFirst()).isNull();
-        assertThat(myLinkedList.getLast()).isNull();
+        assertThatThrownBy(() -> myLinkedList.getFirst()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(() -> myLinkedList.getLast()).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -175,10 +188,15 @@ class MyLinkedListImplTest {
         myLinkedList.add("Pencil case");
         myLinkedList.add("Marbles");
 
-        final AtomicInteger counter = new AtomicInteger();
+        final AtomicInteger counter = new AtomicInteger(0);
         for(String s : myLinkedList) {
             assertThat(s).isEqualTo(expected[counter.getAndIncrement()]);
         }
+
+        counter.set(0);
+        stream(myLinkedList.spliterator(), false).forEach(s ->
+                assertThat(s).isEqualTo(expected[counter.getAndIncrement()])
+        );
 
         counter.set(0);
         myLinkedList.forEach(s -> assertThat(s).isEqualTo(expected[counter.getAndIncrement()]));

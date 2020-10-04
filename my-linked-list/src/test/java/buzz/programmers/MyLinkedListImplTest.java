@@ -58,13 +58,13 @@ class MyLinkedListImplTest {
     @Test
     void addIndex() {
         myLinkedList.add(0, "a");
-        myLinkedList.add(0, "b");
-        myLinkedList.add(0, "c");
+        myLinkedList.add(1, "b");
+        myLinkedList.add(1, "c");
         myLinkedList.add(0, "d");
         assertThat(myLinkedList.size()).isEqualTo(4);
-        assertThat(myLinkedList.get(3)).isEqualTo("a");
-        assertThat(myLinkedList.get(2)).isEqualTo("b");
-        assertThat(myLinkedList.get(1)).isEqualTo("c");
+        assertThat(myLinkedList.get(3)).isEqualTo("b");
+        assertThat(myLinkedList.get(2)).isEqualTo("c");
+        assertThat(myLinkedList.get(1)).isEqualTo("a");
         assertThat(myLinkedList.get(0)).isEqualTo("d");
     }
 

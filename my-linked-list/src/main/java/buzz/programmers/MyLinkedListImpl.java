@@ -2,7 +2,6 @@ package buzz.programmers;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.isNull;
@@ -58,15 +57,17 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return;
         }
 
-        final AtomicReference<Node> current = new AtomicReference<>(first.next);
-        range(1, index).forEach(ignored -> current.set(current.get().next));
-        final Node currentNode = current.get();
-
-        final Node newNode = new Node(element);
-        newNode.prev = currentNode.prev;
-        newNode.next = currentNode;
-        currentNode.prev = newNode;
-        ++size;
+        final AtomicReference<Node> current = new AtomicReference<>(first);
+        range(0, size)
+            .mapToObj(ignore -> current.getAndSet(current.get().next))
+            .skip(index).findFirst().ifPresent(node -> {
+                final Node newNode = new Node(element);
+                newNode.prev = node.prev;
+                newNode.next = node;
+                node.prev.next = newNode;
+                node.prev = newNode;
+                ++size;
+            });
     }
 
     @Override
@@ -99,18 +100,10 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             throw new IndexOutOfBoundsException(index);
         }
 
-        if (0 == index) {
-            return first.data;
-        }
-
-        if (size-1 == index) {
-            return last.data;
-        }
-
         final AtomicReference<Node> current = new AtomicReference<>(first);
-        range(0, index).forEach(ignored -> current.set(current.get().next));
-
-        return current.get().data;
+        return range(0, size)
+                .mapToObj(ignore -> current.getAndSet(current.get().next).data)
+                .skip(index).findFirst().orElseThrow();
     }
 
     @Override
@@ -130,38 +123,36 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         }
 
         final AtomicReference<Node> current = new AtomicReference<>(first);
-        range(0, index).forEach(ignored -> current.set(current.get().next));
-        final Node currentNode = current.get();
-
-        final T data = currentNode.data;
-        if (size == 1) {
-            clear();
-            return data;
-        }
-        removeSingle(currentNode);
-        --size;
-        return data;
+        return range(0, size)
+                .mapToObj(ignore -> current.getAndSet(current.get().next))
+                .skip(index).findFirst()
+                .map(node -> {
+                    final T data = node.data;
+                    if (size == 1) {
+                        clear();
+                        return data;
+                    }
+                    removeSingle(node);
+                    --size;
+                    return data;
+                }).orElseThrow();
     }
 
     @Override
     public boolean remove(final T element) {
         final AtomicReference<Node> current = new AtomicReference<>(first);
-        final Optional<Node> match = range(0, size)
+        return range(0, size)
                 .mapToObj(ignore -> current.getAndSet(current.get().next))
                 .filter(node -> node.data.equals(element))
-                .findFirst();
-
-        if (match.isPresent()) {
-            final Node currentNode = match.get();
-            if (size == 1) {
-                clear();
-                return true;
-            }
-            removeSingle(currentNode);
-            --size;
-            return true;
-        }
-        return false;
+                .findFirst().stream().anyMatch(node -> {
+                    if (size == 1) {
+                        clear();
+                    } else {
+                        removeSingle(node);
+                        --size;
+                    }
+                    return true;
+                });
     }
 
     @Override
@@ -170,7 +161,6 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
         return range(0, size)
                 .mapToObj(ignore -> current.getAndSet(current.get().next))
                 .anyMatch(node -> node.data.equals(o));
-
     }
 
     @Override

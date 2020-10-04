@@ -1,9 +1,8 @@
 package buzz.programmers;
 
-import org.javatuples.Pair;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.isNull;
@@ -59,14 +58,14 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             return;
         }
 
-        Node current = first.next;
-        for (int i = 1; i < index; i++) {
-            current = current.next;
-        }
+        final AtomicReference<Node> current = new AtomicReference<>(first.next);
+        range(1, index).forEach(ignored -> current.set(current.get().next));
+        final Node currentNode = current.get();
+
         final Node newNode = new Node(element);
-        newNode.prev = current.prev;
-        newNode.next = current;
-        current.prev = newNode;
+        newNode.prev = currentNode.prev;
+        newNode.next = currentNode;
+        currentNode.prev = newNode;
         ++size;
     }
 
@@ -130,41 +129,36 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
             throw new IndexOutOfBoundsException(index);
         }
 
-        if (size == 1) {
-            final T data = getFirst();
-            clear();
-            return data;
-        }
-
         final AtomicReference<Node> current = new AtomicReference<>(first);
         range(0, index).forEach(ignored -> current.set(current.get().next));
         final Node currentNode = current.get();
 
         final T data = currentNode.data;
-        if (currentNode == first) {
-            first = currentNode.next;
-            first.prev = null;
-        } else if (currentNode == last) {
-            last = currentNode.prev;
-            last.next = null;
-        } else {
-            currentNode.prev.next = currentNode.next;
-            currentNode.next.prev = currentNode.prev;
+        if (size == 1) {
+            clear();
+            return data;
         }
+        removeSingle(currentNode);
         --size;
         return data;
     }
 
     @Override
     public boolean remove(final T element) {
-        final AtomicReference<Pair<Integer, Node>> current = new AtomicReference<>(Pair.with(0, first));
-        range(0, size)
-                .takeWhile(ignored -> !current.get().getValue1().data.equals(element))
-                .forEach(index -> current.set(Pair.with(index + 1, current.get().getValue1().next)));
+        final AtomicReference<Node> current = new AtomicReference<>(first);
+        final Optional<Node> match = range(0, size)
+                .mapToObj(ignore -> current.getAndSet(current.get().next))
+                .filter(node -> node.data.equals(element))
+                .findFirst();
 
-        final Node currentNode = current.get().getValue1();
-        if (nonNull(currentNode) && currentNode.data.equals(element)) {
-            remove(current.get().getValue0());
+        if (match.isPresent()) {
+            final Node currentNode = match.get();
+            if (size == 1) {
+                clear();
+                return true;
+            }
+            removeSingle(currentNode);
+            --size;
             return true;
         }
         return false;
@@ -173,10 +167,10 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
     @Override
     public boolean contains(final Object o) {
         final AtomicReference<Node> current = new AtomicReference<>(first);
-        range(0, size)
-                .takeWhile(ignored -> !current.get().data.equals(o))
-                .forEach(ignored -> current.set(current.get().next));
-        return nonNull(current.get()) && o.equals(current.get().data);
+        return range(0, size)
+                .mapToObj(ignore -> current.getAndSet(current.get().next))
+                .anyMatch(node -> node.data.equals(o));
+
     }
 
     @Override
@@ -204,5 +198,18 @@ public class MyLinkedListImpl<T> implements MyLinkedList<T> {
                 return data;
             }
         };
+    }
+
+    private void removeSingle(final Node currentNode) {
+        if (currentNode == first) {
+            first = currentNode.next;
+            first.prev = null;
+        } else if (currentNode == last) {
+            last = currentNode.prev;
+            last.next = null;
+        } else {
+            currentNode.prev.next = currentNode.next;
+            currentNode.next.prev = currentNode.prev;
+        }
     }
 }

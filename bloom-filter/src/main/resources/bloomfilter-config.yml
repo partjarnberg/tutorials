@@ -1,0 +1,2 @@
+bloomfilter:
+  falsePositiveProbability: 0.1

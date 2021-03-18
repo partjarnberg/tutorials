@@ -27,10 +27,20 @@ _n_ | _expected insertions_
 _ε_ | _false positive probability_ 
 _k_ | _number of hash functions_
  
- Let us use that to design our Bloom filter with the goal of being able to create an instance in the following way for example:
- ```java
+Let us use that to design our Bloom filter with the goal of being able to create an instance in the following way for example:
+```java
 final BloomFilter bloomFilter = BloomFilter.builder()
     .expectedInsertions(1000000)
     .falsePositiveProbability(0.01)
     .build();
- ```
+```
+
+__Files__
+
+We have three files to work with to verify our implementation.
+
+ * We have a file `allMaliciousSites.csv` containing 999.200 URLs marked as malicious for the sake of this exercise.
+ * We also have a file `maliciousUserInput.csv` containing 200 URLs that should have been marked as malicious and put in the filter.
+An important features of a Bloom filter is that it should never yield a false negative answer on the question `if the filter might contain this URL` for example.
+* The final file is `okUserInput.csv` containing 800 URLs that should NOT have been marked as malicious. However, the filter is allowed to yield a false positive answer
+stating a URL to be suspected as malicious even though it is in fact not.

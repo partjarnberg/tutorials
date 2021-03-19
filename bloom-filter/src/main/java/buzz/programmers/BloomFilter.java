@@ -1,37 +1,41 @@
 package buzz.programmers;
 
 import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.lang.Integer.toUnsignedLong;
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
-import static java.util.stream.IntStream.rangeClosed;
 import static org.apache.commons.codec.digest.MurmurHash3.hash32x86;
 
 public class BloomFilter {
+    private static final long THE_ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE_THE_UNIVERSE_AND_EVERYTHING = 42;
     private final BitSet bitSet;
-    private final int numberOfHashFunctions;
+    private final Set<Integer> seeds = new HashSet<>();
 
     private BloomFilter(final int numberOfBits, final int numberOfHashFunctions) {
         bitSet = new BitSet(numberOfBits);
-        this.numberOfHashFunctions = numberOfHashFunctions;
+        new Random(THE_ANSWER_TO_THE_ULTIMATE_QUESTION_OF_LIFE_THE_UNIVERSE_AND_EVERYTHING)
+                .ints(numberOfHashFunctions).forEach(seeds::add);
     }
 
     public void add(final byte[] bytes) {
-        rangeClosed(1, numberOfHashFunctions).forEach(seed ->
+        seeds.forEach(seed ->
                 bitSet.set((int) (toUnsignedLong(hash32x86(bytes, 0, bytes.length, seed)) % bitSet.size()))
         );
     }
 
     public boolean mightContain(final byte[] bytes) {
-        return rangeClosed(1, numberOfHashFunctions).map(seed ->
+        return seeds.stream().map(seed ->
                 (int) (toUnsignedLong(hash32x86(bytes, 0, bytes.length, seed)) % bitSet.size())
         ).allMatch(bitSet::get);
     }
 
     public int getNumberOfHashFunctions() {
-        return numberOfHashFunctions;
+        return seeds.size();
     }
 
     public int sizeInBytes() {

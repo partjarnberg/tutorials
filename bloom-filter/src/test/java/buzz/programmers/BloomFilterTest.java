@@ -1,13 +1,14 @@
 package buzz.programmers;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.Offset.offset;
@@ -51,30 +52,18 @@ class BloomFilterTest {
     }
 
     @Test
-    void testForMaliciousInput() {
+    void testForMaliciousInput() throws IOException, CsvException {
         final InputStream in = getClass().getResourceAsStream("/maliciousUserInput.csv");
-
-        final AtomicInteger maliciousSites = new AtomicInteger(0);
-
-        new CSVReader(new InputStreamReader(in, StandardCharsets.UTF_8)).forEach(line -> {
-            if(bloomFilter.mightContain(line[1].getBytes())) {
-                maliciousSites.incrementAndGet();
-            }
-        });
-        assertThat(maliciousSites.get()).isEqualTo(200);
+        assertThat(new CSVReader(new InputStreamReader(in, StandardCharsets.UTF_8)).readAll().stream()
+                .filter(line -> bloomFilter.mightContain(line[1].getBytes()))
+                .count()).isEqualTo(200);
     }
 
     @Test
-    void testForOkInput() {
+    void testForOkInput() throws IOException, CsvException {
         final InputStream in = getClass().getResourceAsStream("/okUserInput.csv");
-
-        final AtomicInteger okSites = new AtomicInteger(0);
-
-        new CSVReader(new InputStreamReader(in, StandardCharsets.UTF_8)).forEach(line -> {
-            if(!bloomFilter.mightContain(line[1].getBytes())) {
-                okSites.incrementAndGet();
-            }
-        });
-        assertThat(okSites.get()).isCloseTo(800, offset(10));
+        assertThat(new CSVReader(new InputStreamReader(in, StandardCharsets.UTF_8)).readAll().stream()
+                .filter(line -> !bloomFilter.mightContain(line[1].getBytes()))
+                .count()).isCloseTo(800, offset(10L));
     }
 }
